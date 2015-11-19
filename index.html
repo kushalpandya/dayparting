@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dayparting - A Micro-library to Convert Time into Human-friendly part of the day.</title>
+    <link rel="stylesheet" href="styles.css" media="screen" title="no title" charset="utf-8">
+    <script src="dayparting.js" charset="utf-8"></script>
+</head>
+<body>
+    <header>
+        <h1 class="header-title">DaypartingJS</h1>
+        <h3 class="header-desc">A Micro-library to Convert Time into Human-friendly part of the day.</h3>
+    </header>
+    <section class="body-container">
+        <table id="daypartTable" class="pure-table dayparting-timetable">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Daypart</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script charset="utf-8">
+        $(document).ready(function() {
+            var myDaypart,
+                localeJSON,
+                fnGetRandomDate,
+                fnFormatTime,
+                datesArr = [],
+                i;
+
+            /**
+             * Handy function to generate random date object that lies between 'start' and 'end' dates.
+             * Source http://stackoverflow.com/a/9035732/414749
+             */
+            fnGetRandomDate = function(start, end) {
+                return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+            };
+
+            fnFormatTime = function(dateObject) {
+                var hh = dateObject.getHours(),
+                    mm = dateObject.getMinutes(),
+                    ampm = hh >= 12 ? 'pm' : 'am',
+                    hh = hh % 12,
+                    hh = hh ? hh : 12,
+                    mm = mm < 10 ? '0' + mm : mm;
+
+                return (hh + ':' + mm + ' ' + ampm);
+            };
+
+            for (i = 0; i < 10; i++)
+                datesArr.push(fnGetRandomDate(new Date(2012, 0, 1), new Date()));
+
+            $.getJSON("/locale.json", function(data) {
+                var daypartTableBody = $('#daypartTable tbody');
+                    trArr = '';
+
+                myDaypart = daypart({
+                    locale: 'en-US',
+                    localeJSON: data
+                });
+
+                for(i = 0; i < 10; i++)
+                {
+                    trArr += '<tr><td>' +
+                                fnFormatTime(datesArr[i]) +
+                             '</td><td>' +
+                                myDaypart.for(datesArr[i]) +
+                             '</td></tr>';
+                }
+
+                daypartTableBody.append(trArr);
+            });
+        });
+    </script>
+</body>
+</html>
