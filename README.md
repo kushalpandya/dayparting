@@ -36,7 +36,7 @@ Use `require` to load Dayparting module.
 ```javascript
 var dayparting = require('dayparting');
 ```
-- **Initialize**
+- **Initialize:**
 Instantiate the `dayparting` with a locale configuration.
 
 ```javascript
@@ -78,7 +78,7 @@ This will set `en-US` as default locale for `myDaypart` and use given `localeJSO
     }
 }
 ```
-- **Call**
+- **Call:**
 Daypart provides a method `for()` which accepts `date` object as a parameter, and returns string representation for the time within that date object.
 
 ```javascript
