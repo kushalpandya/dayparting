@@ -24,6 +24,10 @@
       "url": "https://github.com/kushalpandya/dayparting/blob/master/LICENSE"
     }
   ],
+  "bugs": {
+    "url": "https://github.com/kushalpandya/dayparting/issues"
+  },
+  "homepage": "https://github.com/kushalpandya/dayparting",
   "devDependencies": {
     "chai": "^3.4.1",
     "mocha": "^2.3.4"
