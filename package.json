@@ -1,6 +1,6 @@
 {
   "name": "dayparting",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A Dayparting micro library to present time of day in Dayparts.",
   "homepage": "https://github.com/kushalpandya/dayparting",
   "author": "Kushal Pandya <kushalspandya@gmail.com> (https://doublslash.com)",
