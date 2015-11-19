@@ -1,0 +1,28 @@
+{
+    "en-US": {
+        withoutDate: {
+            "postLateFringe": "Post Late Fringe",
+            "earlyMorning": "Early Morning",
+            "lateMorning": "Late Morning",
+            "afternoon": "Afternoon",
+            "earlyFringe": "Early Fringe",
+            "lateFringe": "Late Fringe",
+            "lateNight": "Late Night",
+            "overnight": "Overnight",
+            "primeAccess": "Prime Access",
+            "primeTime": "Prime Time"
+        },
+        withDate: {
+            "postLateFringe": "Post Late Fringe on ${date}",
+            "earlyMorning": "${date} Early Morning",
+            "lateMorning": "${date} Late Morning",
+            "afternoon": "${date} Afternoon",
+            "earlyFringe": "${date} Early Fringe",
+            "lateFringe": "${date} Late Fringe",
+            "lateNight": "${date} Late Night",
+            "overnight": "${date} Overnight",
+            "primeAccess": "Prime Access on ${date}",
+            "primeTime": "${date} at Prime Time"
+        }
+    }
+}
