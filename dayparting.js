@@ -1,5 +1,5 @@
 /**
- * dayparting v1.0.0
+ * dayparting v0.1.0
  *
  * Author: Kushal Pandya <kushalspandya@gmail.com> (https://doublslash.com)
  * Date: 18 November, 2015

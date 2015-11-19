@@ -92,7 +92,7 @@ myDatepart.for(date); // returns 'Afternoon'
 
 ###Version Information
 ---
-* 1.0.0 - First Release.
+* 0.1.0 - First Release.
 
 ###Author
 ---
