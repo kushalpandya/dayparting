@@ -30,9 +30,7 @@
             if (Object.prototype.toString.call(dateObj) === '[object Date]')
             {
                 if (!isNaN(dateObj.getTime()))
-                {
                     return true;
-                }
             }
 
             return false;
@@ -51,7 +49,7 @@
                 earlyFringe     =   { start: 1700,  end: 2000 },
                 lateFringe      =   { start: 2000,  end: 2300 },
                 lateNight       =   { start: 2300,  end: 2359 },
-                lateNightNext   =   { start: 100,  end: 200 },
+                lateNightNext   =   { start: 100,   end: 200 },
                 overnight       =   { start: 200,   end: 600 };
 
             var hh = dateObj.getHours(),
