@@ -3,14 +3,14 @@ Dayparting
 
 A Dayparting micro library to present time of day in Dayparts.
 
-Example; _8:00 AM_ **=>** _Early Morning_
+i.e. _8:00 AM_ **=>** _Early Morning_
 
 It follows standard dayparting conventions (read more about Dayparting on [Wikipedia](https://en.wikipedia.org/wiki/Dayparting)).
 
 ###Example
 ![Example Results](http://i.imgur.com/BYarKj3.png)
 
-###Usage
+###Configure
 ---
 ####In web browser
 Include `dayparting.js` like your any other JS file using `script` tag in your page `<head>`.
@@ -36,6 +36,9 @@ Use `require` to load Dayparting module.
 ```javascript
 var dayparting = require('dayparting');
 ```
+
+###Use
+---
 - **Initialize:**
 Instantiate the `dayparting` with a locale configuration.
 
@@ -58,7 +61,7 @@ var myDaypart = daypart({
 });
 ```
 
-This will set `en-US` as default locale for `myDaypart` and use given `localeJSON`, note that structure of `localeJSON` config follow [ICU Message Syntax](http://userguide.icu-project.org/formatparse/messages) where keynames has to be same as given in the example. You can have strings for multiple locales within same `localeJSON` like;
+This will set `en-US` as default locale for `myDaypart` and use given `localeJSON`, note that structure of `localeJSON` follows [ICU Message Syntax](http://userguide.icu-project.org/formatparse/messages) where keynames have to be same as given in the example. You can have strings for multiple locales within same `localeJSON` like (and thus load external JSON file containing strings for multiple locales);
 
 ```javascript
 {
@@ -92,6 +95,7 @@ myDatepart.for(date); // returns 'Afternoon'
 
 ###Version Information
 ---
+* 0.1.1 - Minor refactoring, README updated.
 * 0.1.0 - First Release.
 
 ###Author
