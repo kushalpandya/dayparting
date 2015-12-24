@@ -39,6 +39,8 @@ var dayparting = require('dayparting');
 
 ###Use
 ---
+
+####Basic Usage
 - **Initialize:**
 Instantiate the `dayparting` with a locale configuration.
 
@@ -93,8 +95,51 @@ date.setMinutes(15);
 myDatepart.for(date); // returns 'Afternoon'
 ```
 
+#### Use with Databinding
+- **Initialize**
+During initialization, along with `locale` and `localeJSON`, you can provide `binding` to enable data-binding on elements, it is `false` by default.
+
+```javascript
+var myDaypart = daypart({
+	locale: 'en-US',
+	localeJSON: {
+		"en-US": {
+	        "earlyMorning": "Early Morning",
+	        ....
+	        "primeTime": "Prime Time"
+	    }
+	},
+	binding: true
+});
+```
+- **Attaching Elements**
+Once `myDaypart` is initialized and you have DOM with existing elements as follows;
+
+```html
+<div class="container">
+	Will be aired at tomorrow 7:06 PM <label id="showTime"></label>
+</div>
+```
+
+Use `attach()`  to add elements which will be bound to Daypart.
+
+```javascript
+myDaypart.attach(new Date(2015, 12, 24, 19, 06), document.getElementById('showTime'));
+```
+
+This will automatically set string for `7:06 PM` in the label with `en-US` locale.
+
+- **Switch Locales**
+Once elements are attached with `daypart` object, simply call `setLocale` on the object and contents of all the attached elements will be updated automatically.
+
+```javascript
+myDaypart.setLocale('fr-FR');
+```
+
+
 ###Version Information
 ---
+* 0.2.0 - Added support for one-way data-binding to enable live locale switch, bug fixes.
 * 0.1.1 - Minor refactoring, README updated.
 * 0.1.0 - First Release.
 
