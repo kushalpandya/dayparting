@@ -72,6 +72,15 @@ describe('#daypart.for()', function() {
         myDaypart.for(date).should.equal(localeJSON[currentLocale]['lateNight']);
     });
 
+    it('Shows 12:05 AM as Late Night', function() {
+        var date = new Date();
+
+        date.setHours(0);
+        date.setMinutes(5);
+
+        myDaypart.for(date).should.equal(localeJSON[currentLocale]['lateNight']);
+    });
+
     it('Shows 3:00 AM as Overnight', function() {
         var date = new Date();
 
