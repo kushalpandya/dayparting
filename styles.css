@@ -105,3 +105,15 @@ header {
     margin: auto;
     margin-top: 50px;
 }
+
+label {
+    display: block;
+    text-align: center;
+}
+
+label select {
+    width: 200px;
+    min-height: 32px;
+    margin-left: 5px;
+    padding: 2px 4px;
+}
