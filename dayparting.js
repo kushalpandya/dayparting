@@ -49,7 +49,7 @@
                 earlyFringe     =   { start: 1700,  end: 2000 },
                 lateFringe      =   { start: 2000,  end: 2300 },
                 lateNight       =   { start: 2300,  end: 2359 },
-                lateNightNext   =   { start: 100,   end: 200 },
+                lateNightNext   =   { start: 0,   end: 200 },
                 overnight       =   { start: 200,   end: 600 };
 
             var hh = dateObj.getHours(),
@@ -62,7 +62,7 @@
                 return (timeval >= slotRange.start && timeval <= slotRange.end);
             };
 
-            hhmm = parseInt(hh + '' + (mm < 10 ? ('0' + mm) : mm)); // Convert hh:mm in 1000s format.
+            hhmm = parseInt((hh < 10 ? ('0' + hh) : hh) + '' + (mm < 10 ? ('0' + mm) : mm)); // Convert hh:mm in 1000s format.
 
             if (fnIsInSlot(earlyMorning, hhmm))
                 slotName = 'earlyMorning';
