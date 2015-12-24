@@ -17,10 +17,13 @@
 
     daypart = self.daypart = function(config) {
         var TODAY = new Date(),
+            ID_PROP = 'data-daypartattachmentid',
             thisDaypart = {},
             daypartConfig = {};
 
         var fnIsValidDateObj,
+            fnIsValidDOMElement,
+            fnGenID,
             fnGetDaypartSlot;
 
         /**
@@ -34,6 +37,24 @@
             }
 
             return false;
+        };
+
+        /**
+         * DOM element validity check < http://stackoverflow.com/a/384380/414749 >.
+         */
+        fnIsValidDOMElement = function(el) {
+            return (
+                typeof HTMLElement === "object" ?
+                            el instanceof HTMLElement : //DOM2
+                            el && typeof el === "object" && el !== null && el.nodeType === 1 && typeof el.nodeName==="string"
+            );
+        };
+
+        /**
+         * Generate Timestamp based random Unique IDs.
+         */
+        fnGenID = function() {
+            return Math.floor(Math.random() * 10000000000000001);
         };
 
         /**
@@ -87,8 +108,12 @@
         if (typeof config === 'object')
         {
             daypartConfig.locale = config.locale || 'en-US'; // Defaults to en-US locale.
-            daypartConfig.localeJSON = (typeof config.localeJSON === 'object') ? config.localeJSON : {}; // Make sure we don't set undefined instead of an object;
+            daypartConfig.localeJSON = (typeof config.localeJSON === 'object') ? config.localeJSON : {}; // Make sure we don't set undefined instead of an object.
+            daypartConfig.binding = (typeof config.binding === 'boolean') ? config.binding : false; // Default to 'false' for Live data binding.
         }
+
+        /** Daypart API Begin **/
+        thisDaypart.attachments = [];
 
         /**
          * Resolve instance conflict in case module is loaded more than once.
@@ -96,6 +121,34 @@
         thisDaypart.noConflict = function() {
             self.daypart = old_daypart;
             return daypart;
+        };
+
+        /**
+         * Switches a locale to the provided locale.
+         *
+         * @param locale a valid locale identifier which is available in localeJSON.
+         */
+        thisDaypart.setLocale = function(locale) {
+            var currentAttachment,
+                i;
+
+            if (daypartConfig.localeJSON[locale])
+            {
+                if (daypartConfig.binding)
+                {
+                    daypartConfig.locale = locale;
+                    
+                    for (i = 0; i < this.attachments.length; i++)
+                    {
+                        currentAttachment = this.attachments[i];
+                        currentAttachment.setValue(this.for(currentAttachment.dateValue));
+                    }
+                }
+                else
+                    throw new Error("Binding not enabled on this Daypart instance.");
+            }
+            else
+                throw new Error("Locale not available for: " + locale);
         };
 
         /**
@@ -116,6 +169,51 @@
             else
                 throw new Error("Date is invalid.");
         };
+
+        /**
+         * attach method of daypart, sets string representation of part of day from provided
+         * Date object and attaches daypart locale switch to the provided Element.
+         *
+         * @param dateObj a valid Date object.
+         * @param targetEl DOM element to attach with.
+         */
+        thisDaypart.attach = function(dateObj, targetEl) {
+            var datepartSlot,
+                currLocaleDaypart = daypartConfig.localeJSON[daypartConfig.locale],
+                attachmentId,
+                attachment;
+
+            if (fnIsValidDOMElement(targetEl))
+            {
+                // Generate Unique ID for this attachment.
+                attachmentId = fnGenID();
+                targetEl.setAttribute(ID_PROP, attachmentId);
+
+                // Create attachment object.
+                attachment = {
+                    id: attachmentId,
+                    el: targetEl,
+                    dateValue: dateObj,
+                    setValue: function(value) {
+                        this.el.innerText = value;
+                    }
+                };
+
+                // Set Daypart value for current locale.
+                attachment.setValue(this.for(dateObj));
+
+                // Put attachment to a collection for later updates.
+                this.attachments.push(attachment);
+
+                return attachmentId;
+            }
+            else
+                throw new Error("targetEl is not a valid DOM Element.");
+
+            return false;
+        };
+
+        /** Daypart API end **/
 
         return thisDaypart;
     };
