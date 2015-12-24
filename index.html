@@ -66,11 +66,16 @@
 
                 for(i = 0; i < 10; i++)
                 {
-                    trArr += '<tr><td>' +
-                                fnFormatTime(datesArr[i]) +
-                             '</td><td>' +
-                                myDaypart.for(datesArr[i]) +
-                             '</td></tr>';
+                    trArr += [
+                        '<tr>',
+                            '<td>',
+                                fnFormatTime(datesArr[i]),
+                            '</td>',
+                            '<td>',
+                                myDaypart.for(datesArr[i]),
+                            '</td>',
+                        '</tr>'
+                    ].join('');
                 }
 
                 daypartTableBody.append(trArr);
