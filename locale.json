@@ -9,5 +9,27 @@
         "overnight": "Overnight",
         "primeAccess": "Prime Access",
         "primeTime": "Prime Time"
+    },
+    "fr-FR": {
+        "earlyMorning": "Tôt le matin",
+        "lateMorning": "Tard dans la matinée",
+        "afternoon": "Après midi",
+        "earlyFringe": "Fringe début",
+        "lateFringe": "Fringe fin",
+        "lateNight": "Tard dans la nuit",
+        "overnight": "Pendant la nuit",
+        "primeAccess": "Premier Accès",
+        "primeTime": "Prime Time"
+    },
+    "hi-IN": {
+        "earlyMorning": "सुबह",
+        "lateMorning": "देर सुबह",
+        "afternoon": "दोपहर",
+        "earlyFringe": "देर दोपहर",
+        "lateFringe": "शाम",
+        "lateNight": "देर रात",
+        "overnight": "रात भर",
+        "primeAccess": "शाम",
+        "primeTime": "रात"
     }
 }
