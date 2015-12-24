@@ -10,6 +10,8 @@
     <header>
         <h1 class="header-title">DaypartingJS</h1>
         <h3 class="header-desc">A Micro-library to Convert Time into Human-friendly part of the day.</h3>
+        <h4 class="header-title">Static Locale</h4>
+        <h5 class="header-desc">Default Locale is English (en-US)</h5>
     </header>
     <section class="body-container">
         <table id="daypartTable" class="pure-table dayparting-timetable">
@@ -22,15 +24,57 @@
             <tbody>
             </tbody>
         </table>
+        <h4 class="header-title">Live Locale Switching</h4>
+        <label for="">
+            Select Language
+            <select id="selectedLocale">
+                <option value="en-US">English</option>
+                <option value="hi-IN">हिन्दी</option>
+                <option value="fr-FR">Français</option>
+            </select>
+        </label>
+        <table id="daypartTable2" class="pure-table dayparting-timetable">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Daypart</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>7:06 pm</td>
+                    <td id="static1"></td>
+                </tr>
+                <tr>
+                    <td>10:46 am</td>
+                    <td id="static2"></td>
+                </tr>
+                <tr>
+                    <td>5:19 pm</td>
+                    <td id="static3"></td>
+                </tr>
+                <tr>
+                    <td>8:05 am</td>
+                    <td id="static4"></td>
+                </tr>
+                <tr>
+                    <td>3:51 am</td>
+                    <td id="static5"></td>
+                </tr>
+            </tbody>
+        </table>
     </section>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script charset="utf-8">
         $(document).ready(function() {
-            var myDaypart,
+            var now = new Date(),
+                myDaypart,
+                myDaypartBound,
                 localeJSON,
                 fnGetRandomDate,
                 fnFormatTime,
                 datesArr = [],
+                datesStaticArr = [],
                 i;
 
             /**
@@ -41,6 +85,9 @@
                 return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
             };
 
+            /**
+             * Format time from dateObject into `hh:mm tt` format.
+             */
             fnFormatTime = function(dateObject) {
                 var hh = dateObject.getHours(),
                     mm = dateObject.getMinutes(),
@@ -52,19 +99,41 @@
                 return (hh + ':' + mm + ' ' + ampm);
             };
 
+            // Create array of size 10 with random timed Date Objects for daypartTable
             for (i = 0; i < 10; i++)
                 datesArr.push(fnGetRandomDate(new Date(2012, 0, 1), new Date()));
 
+            // Create array of static date objects with Time as per given in daypartTable2
+            datesStaticArr = [
+                (new Date(now.getYear(), now.getMonth(), now.getDate(), 19, 6)),    // 07:06 PM
+                (new Date(now.getYear(), now.getMonth(), now.getDate(), 10, 46)),   // 10:46 AM
+                (new Date(now.getYear(), now.getMonth(), now.getDate(), 17, 19)),   // 05:19 PM
+                (new Date(now.getYear(), now.getMonth(), now.getDate(), 8, 5)),     // 08:05 AM
+                (new Date(now.getYear(), now.getMonth(), now.getDate(), 3, 51))     // 03:51 AM
+            ];
+
+            // Load Locale JSON file
+            // and populate daypartTable with random time values and their appropriate daypart strings.
             $.getJSON("/locale.json", function(data) {
-                var daypartTableBody = $('#daypartTable tbody');
+                var daypartTableBody = $('#daypartTable tbody'),
+                    selectedLocale = $('#selectedLocale'),
                     trArr = '';
 
+                // Create static Daypart instance.
                 myDaypart = daypart({
                     locale: 'en-US',
                     localeJSON: data
                 });
 
-                for(i = 0; i < 10; i++)
+                // Create data-bound Daypart instance.
+                myDaypartBound = daypart({
+                    locale: 'en-US',
+                    localeJSON: data,
+                    binding: true
+                });
+
+                // Create Random timed Table with matching Daypart strings.
+                for (i = 0; i < 10; i++)
                 {
                     trArr += [
                         '<tr>',
@@ -79,6 +148,15 @@
                 }
 
                 daypartTableBody.append(trArr);
+
+                // Attach static table items with data-bound Daypart.
+                for (i = 0; i < 5; i++)
+                    myDaypartBound.attach(datesStaticArr[i], $('#static' + (i + 1))[0]);
+
+                // Change locale easily by using setLocale.
+                selectedLocale.on('change', function(e) {
+                    myDaypartBound.setLocale($(this).val());
+                });
             });
         });
     </script>
