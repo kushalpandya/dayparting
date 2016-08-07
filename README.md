@@ -1,5 +1,9 @@
 Dayparting
 ======================
+[![Build Status](https://travis-ci.org/kushalpandya/dayparting.svg?branch=master)](https://travis-ci.org/kushalpandya/dayparting)
+
+
+[![NPM](https://nodei.co/npm/dayparting.png?compact=true)](https://npmjs.org/package/dayparting)
 
 A Dayparting micro library to present time of day in Dayparts.
 
