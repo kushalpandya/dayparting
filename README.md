@@ -2,6 +2,8 @@ Dayparting
 ======================
 [![Build Status](https://travis-ci.org/kushalpandya/dayparting.svg?branch=master)](https://travis-ci.org/kushalpandya/dayparting)
 
+[![NPM](https://img.shields.io/npm/dt/dayparting.svg)](https://npmjs.org/package/dayparting)
+
 
 [![NPM](https://nodei.co/npm/dayparting.png?compact=true)](https://npmjs.org/package/dayparting)
 
